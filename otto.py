@@ -6,18 +6,29 @@ from pythonosc import udp_client
 import random
 
 
+ip_address = "192.168.1.123"
+port = 9000
+
+
 def NewData(data):
-  #print data
+  value = 0
   for x in range(10):
   	address = "/0/chan/%d"%x
   	percents = int (data[x]/255*100)
   	if percents == 0:
-  		percents = " "
-  	oscoutput.send_message(address, percents)
+  		value = "-"
+  	
+  	elif percents >=100:
+  		value = "FL"
+  	else:
+  		value = percents
+  	
+  	oscoutput.send_message(address, value)
 
 
 
-oscoutput = udp_client.SimpleUDPClient("192.168.1.242", 9000)
+oscoutput = udp_client.SimpleUDPClient(ip_address, port)
+
 universe = 1
 
 wrapper = ClientWrapper()
