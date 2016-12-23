@@ -3,10 +3,10 @@
 from ola.ClientWrapper import ClientWrapper
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
-import random
+import cmd
 
 
-ip_address = "192.168.1.123"
+ip_address = "192.168.1.124"
 port = 9000
 
 
