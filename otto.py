@@ -20,18 +20,22 @@ def NewData(data):
   	
   	elif percents >=100:
   		value = "FL"
+  	
   	else:
   		value = percents
   	
   	oscoutput.send_message(address, value)
 
 
+def do_run ():
+	oscoutput = udp_client.SimpleUDPClient(ip_address, port)
+	universe = 1
+	wrapper = ClientWrapper()
+	client = wrapper.Client()
+	client.RegisterUniverse(universe, client.REGISTER, NewData)
+	wrapper.Run()
 
-oscoutput = udp_client.SimpleUDPClient(ip_address, port)
-
-universe = 1
-
-wrapper = ClientWrapper()
-client = wrapper.Client()
-client.RegisterUniverse(universe, client.REGISTER, NewData)
-wrapper.Run()
+cmd = cmd.Cmd()
+cmd.prompt = '>'
+cmd.intro = "Welcome to OTTO"
+cmd.cmdloop()
