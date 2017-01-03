@@ -5,7 +5,22 @@ from pythonosc import osc_message_builder
 from pythonosc import udp_client
 import cmd
 
+class OttoShell(cmd.Cmd):
 
+	def do_run (self, arg):
+		oscoutput = udp_client.SimpleUDPClient(ip_address, port)
+		universe = 1
+		wrapper = ClientWrapper()
+		client = wrapper.Client()
+		client.RegisterUniverse(universe, client.REGISTER, NewData)
+		wrapper.Run()
+
+	def do_ip (self, arg):
+		print (arg)
+		return False
+
+
+		
 ip_address = "192.168.1.124"
 port = 9000
 
@@ -27,15 +42,9 @@ def NewData(data):
   	oscoutput.send_message(address, value)
 
 
-def do_run ():
-	oscoutput = udp_client.SimpleUDPClient(ip_address, port)
-	universe = 1
-	wrapper = ClientWrapper()
-	client = wrapper.Client()
-	client.RegisterUniverse(universe, client.REGISTER, NewData)
-	wrapper.Run()
-
-cmd = cmd.Cmd()
+cmd = OttoShell()
 cmd.prompt = '>'
 cmd.intro = "Welcome to OTTO"
+
+
 cmd.cmdloop()
